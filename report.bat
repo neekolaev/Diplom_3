@@ -1,0 +1,3 @@
+@echo off
+echo Генерация отчета...
+call allure serve target/allure-results

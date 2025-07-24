@@ -5,15 +5,14 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import ru.praktikum.pages.MainPage;
-
 import static org.junit.Assert.assertTrue;
 
 public class ConstructorTest extends BaseTest {
 
     @Test
-    @DisplayName("Переходы между разделами конструктора")
-    @Description("Проверка работы переходов к разделам: «Булки», «Соусы», «Начинки»")
-    public void testConstructorSectionNavigation() {
+    @DisplayName("Переход к разделу «Соусы»")
+    @Description("Проверка работы перехода к разделу «Соусы» в конструкторе")
+    public void testGoToSaucesSection() {
         MainPage mainPage = new MainPage(driver);
         mainPage.openMainPage();
 
@@ -24,9 +23,18 @@ public class ConstructorTest extends BaseTest {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
         String activeTab = mainPage.getActiveTabText();
         assertTrue("Вкладка 'Соусы' не активирована! Активна: " + activeTab,
                 activeTab.contains("Соусы"));
+    }
+
+    @Test
+    @DisplayName("Переход к разделу «Начинки»")
+    @Description("Проверка работы перехода к разделу «Начинки» в конструкторе")
+    public void testGoToFillingsSection() {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.openMainPage();
 
         // Переход в раздел Начинки
         mainPage.clickFillingsTab();
@@ -35,9 +43,26 @@ public class ConstructorTest extends BaseTest {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        activeTab = mainPage.getActiveTabText();
+
+        String activeTab = mainPage.getActiveTabText();
         assertTrue("Вкладка 'Начинки' не активирована! Активна: " + activeTab,
                 activeTab.contains("Начинки"));
+    }
+
+    @Test
+    @DisplayName("Переход к разделу «Булки»")
+    @Description("Проверка работы перехода к разделу «Булки» в конструкторе")
+    public void testGoToBunsSection() {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.openMainPage();
+
+        // Для чистоты теста сначала перейдем в другой раздел
+        mainPage.clickSaucesTab();
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         // Переход в раздел Булки
         mainPage.clickBunsTab();
@@ -46,7 +71,8 @@ public class ConstructorTest extends BaseTest {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        activeTab = mainPage.getActiveTabText();
+
+        String activeTab = mainPage.getActiveTabText();
         assertTrue("Вкладка 'Булки' не активирована! Активна: " + activeTab,
                 activeTab.contains("Булки"));
     }
